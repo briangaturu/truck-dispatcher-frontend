@@ -3,17 +3,30 @@ interface AdminCardProps {
   value: string | number;
   icon: string;
   color?: string;
+  bg?: string;
   delta?: string;
+  up?: boolean;
 }
 
-const AdminCard = ({ title, value, icon, color = "#2563eb", delta }: AdminCardProps) => (
-  <div className="admin-stat-card" style={{ borderTop: `3px solid ${color}` }}>
-    <div className="admin-stat-card__header">
-      <span className="admin-stat-card__label">{title}</span>
-      <span className="admin-stat-card__icon" style={{ color }}>{icon}</span>
+const AdminCard = ({ title, value, icon, color = "#2563eb", bg = "#eff6ff", delta, up = true }: AdminCardProps) => (
+  <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-card">
+    <div className="flex items-start justify-between mb-3">
+      <div>
+        <p className="text-xs font-medium text-slate-500 mb-0.5">{title}</p>
+        <div className="text-2xl font-bold text-slate-900">{value}</div>
+      </div>
+      <div
+        className="w-9 h-9 rounded-lg flex items-center justify-center text-base shrink-0"
+        style={{ background: bg, color }}
+      >
+        {icon}
+      </div>
     </div>
-    <div className="admin-stat-card__value">{value}</div>
-    {delta && <div className="admin-stat-card__delta">{delta}</div>}
+    {delta && (
+      <div className={`text-xs font-medium ${up ? "text-success" : "text-danger"}`}>
+        {delta}
+      </div>
+    )}
   </div>
 );
 

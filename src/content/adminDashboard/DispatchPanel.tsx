@@ -15,15 +15,15 @@ const DispatchPanel = () => {
   };
 
   return (
-    <div className="td-table-card">
-      <div className="td-table-card__header">
-        <h3>Dispatch Panel</h3>
+    <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-card">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-sm font-semibold text-slate-900">Dispatch Panel</h3>
       </div>
       {isSuccess && (
         <div className="td-alert td-alert--success">✅ Dispatch created successfully!</div>
       )}
-      <form onSubmit={handleSubmit} className="dispatch-form">
-        <div className="dispatch-form__grid">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-x-4">
           <div className="td-field">
             <label>Load ID</label>
             <input name="loadId" value={form.loadId} onChange={handleChange} placeholder="LD-2026-0001" required />

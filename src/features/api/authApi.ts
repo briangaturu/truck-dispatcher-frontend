@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import type { RootState } from "../../app/store";
 import type { User, LoginCredentials, RegisterData } from "../../utils/types";
 
-const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
 
 export const authApi = createApi({
   reducerPath: "authApi",
@@ -16,7 +16,7 @@ export const authApi = createApi({
   }),
   endpoints: (builder) => ({
     login: builder.mutation<
-      { user: User; token: string },
+      { success: boolean; message: string; data: { user: User; token: string } },
       LoginCredentials
     >({
       query: (credentials) => ({
@@ -25,20 +25,29 @@ export const authApi = createApi({
         body: credentials,
       }),
     }),
+
     register: builder.mutation<
-      { user: User; token: string },
+      { success: boolean; message: string; data: { user: User; token: string } },
       RegisterData
     >({
       query: (data) => ({
         url: "/auth/register",
         method: "POST",
-        body: data,
+        body: {
+          ...data,
+          role: data.role.toUpperCase(), // IMPORTANT FIX
+        },
       }),
     }),
+
     getMe: builder.query<User, void>({
       query: () => "/auth/me",
     }),
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation, useGetMeQuery } = authApi;
+export const {
+  useLoginMutation,
+  useRegisterMutation,
+  useGetMeQuery,
+} = authApi;

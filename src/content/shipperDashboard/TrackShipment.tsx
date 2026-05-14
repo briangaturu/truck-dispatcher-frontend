@@ -14,21 +14,34 @@ const TrackShipment = () => {
   const display = events.length > 0 ? events : mockEvents;
 
   return (
-    <div className="td-table-card">
-      <h3>Track Shipment</h3>
-      <div className="track-search">
-        <input value={loadId} onChange={(e) => setLoadId(e.target.value)} placeholder="Enter Load ID..." />
+    <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-card">
+      <h3 className="font-display text-lg font-bold mb-5">Track Shipment</h3>
+      <div className="flex gap-2.5 mb-6">
+        <input
+          value={loadId}
+          onChange={(e) => setLoadId(e.target.value)}
+          placeholder="Enter Load ID..."
+          className="flex-1 py-2.5 px-3.5 border border-slate-200 rounded-[10px] text-sm outline-none focus:border-primary"
+        />
         <button className="td-btn td-btn--primary" onClick={() => setSearch(loadId)}>Track</button>
       </div>
-      {isFetching ? <div className="td-loading">Fetching tracking info...</div> : (
-        <div className="timeline">
+      {isFetching ? <div className="py-10 text-center text-slate-500 text-sm">Fetching tracking info...</div> : (
+        <div className="flex flex-col gap-0 pl-4">
           {display.map((e, i) => (
-            <div key={e.id} className={`timeline__item${i === display.length - 1 ? " timeline__item--active" : ""}`}>
-              <div className="timeline__dot" />
-              <div className="timeline__content">
-                <strong>{e.status}</strong>
-                <span>{e.location}</span>
-                <small>{e.timestamp}</small>
+            <div key={e.id} className="flex gap-4 pb-6 relative">
+              {/* Vertical line */}
+              {i < display.length - 1 && (
+                <div className="absolute left-[-8px] top-5 bottom-0 w-0.5 bg-slate-200" />
+              )}
+              {/* Dot */}
+              <div className={`w-3.5 h-3.5 rounded-full border-2 border-white shrink-0 mt-1 relative z-10 ${
+                i === display.length - 1 ? "bg-primary" : "bg-slate-200"
+              }`} />
+              {/* Content */}
+              <div className="flex flex-col gap-0.5">
+                <strong className="text-sm font-semibold">{e.status}</strong>
+                <span className="text-sm text-slate-500">{e.location}</span>
+                <small className="text-xs text-slate-400">{e.timestamp}</small>
               </div>
             </div>
           ))}

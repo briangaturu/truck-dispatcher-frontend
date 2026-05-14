@@ -19,17 +19,20 @@ const PODUpload = () => {
   };
 
   return (
-    <div className="td-table-card">
-      <h3>Upload Proof of Delivery</h3>
+    <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-card">
+      <h3 className="font-display text-lg font-bold mb-5">Upload Proof of Delivery</h3>
       {isSuccess && <div className="td-alert td-alert--success">✅ POD uploaded successfully!</div>}
-      <form onSubmit={handleSubmit} className="dispatch-form">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-3">
         <div className="td-field">
           <label>Load ID</label>
           <input value={loadId} onChange={(e) => setLoadId(e.target.value)} placeholder="LD-2026-0001" required />
         </div>
         <div className="td-field">
           <label>POD Image / Document</label>
-          <div className="pod-upload-zone" onClick={() => document.getElementById("pod-file")?.click()}>
+          <div
+            className="border-2 border-dashed border-slate-300 rounded-[10px] p-8 text-center cursor-pointer text-slate-500 text-sm transition-colors duration-150 hover:border-primary hover:text-primary"
+            onClick={() => document.getElementById("pod-file")?.click()}
+          >
             {file ? (
               <span>📎 {file.name}</span>
             ) : (

@@ -8,6 +8,8 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import Features from "./pages/Features";
+import Pricing from "./pages/Pricing";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Error from "./pages/Error";
@@ -19,7 +21,7 @@ import ShipperDashboard from "./pages/ShipperDashboard";
 const PublicLayout = ({ children }: { children: React.ReactNode }) => (
   <>
     <Navbar />
-    <main className="public-main">{children}</main>
+    <main className="min-h-[calc(100vh-68px-200px)]">{children}</main>
     <Footer />
   </>
 );
@@ -42,6 +44,22 @@ const App = () => (
         element={
           <PublicLayout>
             <About />
+          </PublicLayout>
+        }
+      />
+      <Route
+        path="/features"
+        element={
+          <PublicLayout>
+            <Features />
+          </PublicLayout>
+        }
+      />
+      <Route
+        path="/pricing"
+        element={
+          <PublicLayout>
+            <Pricing />
           </PublicLayout>
         }
       />

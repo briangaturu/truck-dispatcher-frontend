@@ -15,11 +15,11 @@ const PostLoadForm = () => {
   };
 
   return (
-    <div className="td-table-card">
-      <h3>Post a Load</h3>
+    <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-card">
+      <h3 className="text-sm font-semibold text-slate-900 mb-4">Post a Load</h3>
       {isSuccess && <div className="td-alert td-alert--success">✅ Load posted successfully!</div>}
-      <form onSubmit={handleSubmit} className="dispatch-form">
-        <div className="dispatch-form__grid">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-x-4">
           <div className="td-field"><label>Origin</label><input name="origin" value={form.origin} onChange={handleChange} placeholder="e.g. Nairobi" required /></div>
           <div className="td-field"><label>Destination</label><input name="destination" value={form.destination} onChange={handleChange} placeholder="e.g. Mombasa" required /></div>
           <div className="td-field"><label>Cargo Type</label><input name="cargo" value={form.cargo} onChange={handleChange} placeholder="e.g. Electronics" required /></div>

@@ -17,11 +17,11 @@ const StatusUpdater = () => {
   };
 
   return (
-    <div className="td-table-card">
-      <h3>Update Load Status</h3>
+    <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-card">
+      <h3 className="font-display text-lg font-bold mb-5">Update Load Status</h3>
       {isSuccess && <div className="td-alert td-alert--success">✅ Status updated!</div>}
-      <form onSubmit={handleSubmit} className="dispatch-form">
-        <div className="dispatch-form__grid">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-x-4">
           <div className="td-field">
             <label>Load ID</label>
             <input value={loadId} onChange={(e) => setLoadId(e.target.value)} placeholder="LD-2026-0001" required />

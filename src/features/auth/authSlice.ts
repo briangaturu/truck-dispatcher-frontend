@@ -21,11 +21,17 @@ const authSlice = createSlice({
       state,
       action: PayloadAction<{ user: User; token: string }>
     ) => {
-      state.user = action.payload.user;
+      // Normalize role to lowercase for consistent comparison
+      const normalizedUser = {
+        ...action.payload.user,
+        role: action.payload.user.role.toLowerCase() as any,
+      };
+      
+      state.user = normalizedUser;
       state.token = action.payload.token;
       state.isAuthenticated = true;
       state.error = null;
-      localStorage.setItem("td_user", JSON.stringify(action.payload.user));
+      localStorage.setItem("td_user", JSON.stringify(normalizedUser));
       localStorage.setItem("td_token", action.payload.token);
     },
     logout: (state) => {

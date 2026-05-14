@@ -10,28 +10,31 @@ const statusColor: Record<string, string> = {
   in_transit: "#2563eb", delivered: "#16a34a", pending: "#ea580c", cancelled: "#dc2626", dispatched: "#9333ea",
 };
 
+const th = "text-left p-2.5 px-3.5 bg-slate-50 text-slate-500 text-xs font-semibold uppercase tracking-wider border-b border-slate-200 whitespace-nowrap";
+const td = "p-3 px-3.5 border-b border-slate-200 align-middle";
+
 const MyLoads = () => {
   const { data: loads = [] } = useGetLoadsQuery();
   const myLoads = loads.filter((l) => l.shipperId === "current_user");
   const display = myLoads.length > 0 ? myLoads : mockMyLoads;
 
   return (
-    <div className="td-table-card">
-      <h3>My Loads</h3>
-      <div className="td-table-wrap">
-        <table className="td-table">
+    <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-card">
+      <h3 className="font-display text-lg font-bold mb-5">My Loads</h3>
+      <div className="overflow-x-auto">
+        <table className="w-full border-collapse text-sm">
           <thead>
-            <tr><th>Load ID</th><th>Origin</th><th>Destination</th><th>Cargo</th><th>Status</th><th>Posted</th></tr>
+            <tr><th className={th}>Load ID</th><th className={th}>Origin</th><th className={th}>Destination</th><th className={th}>Cargo</th><th className={th}>Status</th><th className={th}>Posted</th></tr>
           </thead>
           <tbody>
             {display.map((l) => (
-              <tr key={l.id}>
-                <td><span className="td-link">{l.id}</span></td>
-                <td>{l.origin}</td>
-                <td>{l.destination}</td>
-                <td>{l.cargo}</td>
-                <td><span className="td-badge" style={{ background: `${statusColor[l.status]}18`, color: statusColor[l.status] }}>{l.status.replace("_", " ")}</span></td>
-                <td>{l.createdAt}</td>
+              <tr key={l.id} className="hover:bg-slate-50">
+                <td className={td}><span className="td-link">{l.id}</span></td>
+                <td className={td}>{l.origin}</td>
+                <td className={td}>{l.destination}</td>
+                <td className={td}>{l.cargo}</td>
+                <td className={td}><span className="td-badge" style={{ background: `${statusColor[l.status]}18`, color: statusColor[l.status] }}>{l.status.replace("_", " ")}</span></td>
+                <td className={td}>{l.createdAt}</td>
               </tr>
             ))}
           </tbody>
