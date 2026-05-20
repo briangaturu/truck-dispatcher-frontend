@@ -19,13 +19,16 @@ const th = "text-left py-2.5 px-3 bg-slate-50 text-slate-500 text-[11px] font-se
 const td = "py-2.5 px-3 border-b border-slate-100 align-middle text-[13px]";
 
 const LatestLoadsTable = () => (
-  <div className="bg-white border border-slate-200 rounded-xl shadow-card">
-    <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100">
-      <h3 className="text-sm font-semibold text-slate-900">Recent Loads</h3>
-      <Link to="/admin/loads" className="text-xs font-medium text-primary hover:underline">View All</Link>
+  <div className="dashboard-card">
+    <div className="dashboard-card-header">
+      <div>
+        <h3 className="dashboard-card-title">Recent Loads</h3>
+        <p className="dashboard-card-subtitle">Latest shipments in the system</p>
+      </div>
+      <Link to="/admin/loads" className="text-xs font-medium text-primary hover:underline">View All →</Link>
     </div>
     <div className="overflow-x-auto">
-      <table className="w-full border-collapse text-sm">
+      <table className="dashboard-table">
         <thead>
           <tr>
             <th className={th}>Load ID</th>
@@ -41,7 +44,7 @@ const LatestLoadsTable = () => (
           {loads.map((l) => {
             const s = statusMeta[l.status];
             return (
-              <tr key={l.id} className="hover:bg-slate-50 transition-colors">
+              <tr key={l.id}>
                 <td className={td}>
                   <Link to="/admin/loads" className="text-primary font-medium hover:underline">{l.id}</Link>
                 </td>
@@ -50,10 +53,7 @@ const LatestLoadsTable = () => (
                 <td className={td + " text-slate-700"}>{l.driver}</td>
                 <td className={td + " text-slate-500"}>{l.truck}</td>
                 <td className={td}>
-                  <span
-                    className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold capitalize"
-                    style={{ background: s.bg, color: s.color }}
-                  >
+                  <span className="status-badge" style={{ background: s.bg, color: s.color }}>
                     {s.label}
                   </span>
                 </td>

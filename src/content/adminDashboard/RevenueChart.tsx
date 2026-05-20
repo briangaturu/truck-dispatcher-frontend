@@ -23,9 +23,12 @@ const area = (data: number[]) => {
 };
 
 const RevenueChart = () => (
-  <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-card">
-    <div className="flex items-center justify-between mb-4">
-      <h3 className="text-sm font-semibold text-slate-900">Loads Overview</h3>
+  <div className="dashboard-card">
+    <div className="dashboard-card-header">
+      <div>
+        <h3 className="dashboard-card-title">Loads Overview</h3>
+        <p className="dashboard-card-subtitle">Last 7 days performance</p>
+      </div>
       <div className="flex items-center gap-3 text-[11px] text-slate-500">
         <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full bg-[#2563eb] inline-block"></span>Delivered</span>
         <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full bg-[#16a34a] inline-block"></span>In Transit</span>

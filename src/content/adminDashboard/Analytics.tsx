@@ -24,9 +24,12 @@ const segments = statuses.map((s) => {
 });
 
 const Analytics = () => (
-  <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-card">
-    <div className="flex items-center justify-between mb-4">
-      <h3 className="text-sm font-semibold text-slate-900">Loads by Status</h3>
+  <div className="dashboard-card">
+    <div className="dashboard-card-header">
+      <div>
+        <h3 className="dashboard-card-title">Loads by Status</h3>
+        <p className="dashboard-card-subtitle">Distribution across all statuses</p>
+      </div>
     </div>
     <div className="flex items-center gap-6">
       {/* Donut */}
@@ -53,10 +56,10 @@ const Analytics = () => (
       </div>
 
       {/* Legend */}
-      <div className="flex flex-col gap-2.5 flex-1">
+      <div className="flex flex-col gap-3 flex-1">
         {statuses.map((s) => (
           <div key={s.label} className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2.5">
               <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: s.color }}></span>
               <span className="text-xs text-slate-600">{s.label}</span>
             </div>

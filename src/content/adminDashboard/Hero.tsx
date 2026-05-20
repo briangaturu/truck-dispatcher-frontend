@@ -18,23 +18,17 @@ const AdminHero = ({ stats }: Props) => {
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       {cards.map((c) => (
-        <div key={c.label} className="bg-white border border-slate-200 rounded-xl p-4 shadow-card">
-          <div className="flex items-start justify-between mb-3">
-            <div>
-              <p className="text-xs font-medium text-slate-500 mb-0.5">{c.label}</p>
-              <div className="text-2xl font-bold text-slate-900">{c.value}</div>
-            </div>
-            <div
-              className="w-9 h-9 rounded-lg flex items-center justify-center text-base shrink-0"
-              style={{ background: c.bg, color: c.color }}
-            >
-              {c.icon}
-            </div>
+        <div key={c.label} className="stat-card">
+          <div className="stat-card-icon" style={{ background: c.bg }}>
+            {c.icon}
           </div>
-          <div className={`text-xs font-medium ${c.up ? "text-success" : "text-danger"}`}>
-            {c.delta}
+          <h3 className="stat-card-label">{c.label}</h3>
+          <div className="stat-card-value">{c.value}</div>
+          <div className={`stat-card-delta ${c.up ? 'positive' : 'negative'}`}>
+            <span>{c.up ? '↑' : '↓'}</span>
+            <span>{c.delta}</span>
           </div>
         </div>
       ))}

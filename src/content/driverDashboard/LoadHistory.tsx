@@ -13,9 +13,20 @@ const td = "p-3 px-3.5 border-b border-slate-200 align-middle";
 
 const LoadHistory = () => {
   const { user } = useSelector((s: RootState) => s.auth);
-  const { data: loads = [] } = useGetLoadsQuery();
+  const { data: loadsResponse = [], isLoading } = useGetLoadsQuery();
+  
+  // Handle both array and wrapped response
+  const loads = Array.isArray(loadsResponse) ? loadsResponse : [];
   const history = loads.filter((l) => l.driverId === user?.id && l.status === "delivered");
   const display = history.length > 0 ? history : mockHistory;
+
+  if (isLoading) {
+    return (
+      <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-card">
+        <div className="p-10 text-center text-slate-500 text-sm">Loading history...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-card">
@@ -28,10 +39,10 @@ const LoadHistory = () => {
           <tbody>
             {display.map((l) => (
               <tr key={l.id} className="hover:bg-slate-50">
-                <td className={td}><span className="td-link">{l.id}</span></td>
+                <td className={td}><span className="text-primary font-medium hover:underline cursor-pointer">{l.id}</span></td>
                 <td className={td}>{l.origin}</td>
                 <td className={td}>{l.destination}</td>
-                <td className={td}><span className="td-badge" style={{ background: "#16a34a18", color: "#16a34a" }}>Delivered</span></td>
+                <td className={td}><span className="inline-flex items-center gap-1 py-1 px-2.5 rounded-md text-xs font-semibold" style={{ background: "#16a34a18", color: "#16a34a" }}>Delivered</span></td>
                 <td className={td}>{l.updatedAt}</td>
               </tr>
             ))}

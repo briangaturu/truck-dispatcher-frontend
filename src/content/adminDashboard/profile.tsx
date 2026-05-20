@@ -12,14 +12,20 @@ const AdminProfile = () => {
       <div>
         <h2 className="text-lg font-bold text-slate-900 mb-1.5">{user?.name || "Administrator"}</h2>
         <p className="my-2">
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-primary/10 text-primary capitalize">{user?.role || "admin"}</span>
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-primary/10 text-primary capitalize">
+            {user?.role || "admin"}
+          </span>
         </p>
         <p className="text-slate-500 text-sm mt-1">{user?.email || "admin@truckdispatcher.com"}</p>
         <p className="text-slate-500 text-sm mt-1">{user?.phone || "+254 700 000 001"}</p>
       </div>
       <div className="flex gap-2.5 justify-center mt-5">
-        <button className="td-btn td-btn--outline td-btn--sm">Edit Profile</button>
-        <button className="td-btn td-btn--outline td-btn--sm">Change Password</button>
+        <button className="inline-flex items-center justify-center gap-1.5 py-1.5 px-3.5 rounded-lg font-semibold text-xs bg-transparent text-primary border-2 border-primary transition-all duration-150 hover:bg-primary hover:text-white">
+          Edit Profile
+        </button>
+        <button className="inline-flex items-center justify-center gap-1.5 py-1.5 px-3.5 rounded-lg font-semibold text-xs bg-transparent text-primary border-2 border-primary transition-all duration-150 hover:bg-primary hover:text-white">
+          Change Password
+        </button>
       </div>
     </div>
   );

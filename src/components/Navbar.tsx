@@ -4,7 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../app/store";
 import { logout } from "../features/auth/authSlice";
 
-const Navbar = () => {
+interface NavbarProps {
+  hideAuthButtons?: boolean;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ hideAuthButtons = false }) => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const { isAuthenticated, user } = useSelector(
@@ -343,12 +347,12 @@ const Navbar = () => {
                   <Link to={dashboardPath} className="nav-btn-ghost">Dashboard</Link>
                   <button onClick={handleLogout} className="nav-btn-primary">Logout</button>
                 </>
-              ) : (
+              ) : !hideAuthButtons ? (
                 <>
                   <Link to="/login" className="nav-btn-ghost">Sign In</Link>
                   <Link to="/register" className="nav-btn-primary">Get Started →</Link>
                 </>
-              )}
+              ) : null}
             </div>
 
             {/* Hamburger */}
@@ -388,7 +392,7 @@ const Navbar = () => {
                       Logout
                     </button>
                   </>
-                ) : (
+                ) : !hideAuthButtons ? (
                   <>
                     <Link to="/login" onClick={() => setMenuOpen(false)} className="nav-mobile-btn-ghost">
                       Sign In
@@ -397,7 +401,7 @@ const Navbar = () => {
                       Get Started →
                     </Link>
                   </>
-                )}
+                ) : null}
               </div>
             </div>
           )}

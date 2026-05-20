@@ -16,6 +16,8 @@ import Error from "./pages/Error";
 import AdminDashboard from "./pages/AdminDashboard";
 import DriverDashboard from "./pages/DriverDashboard";
 import ShipperDashboard from "./pages/ShipperDashboard";
+import FieldStaffDashboard from "./pages/FieldStaffDashboard";
+import VerifyEmail from "./pages/VerifyEmail";
 
 // Public layout wrapper
 const PublicLayout = ({ children }: { children: React.ReactNode }) => (
@@ -73,20 +75,26 @@ const App = () => (
       />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/verify-email" element={<VerifyEmail />} />
 
       {/* Protected: Admin */}
-      <Route element={<ProtectedRoutes allowedRoles={["admin"]} />}>
+      <Route element={<ProtectedRoutes allowedRoles={["ADMIN"]} />}>
         <Route path="/admin/*" element={<AdminDashboard />} />
       </Route>
 
       {/* Protected: Driver */}
-      <Route element={<ProtectedRoutes allowedRoles={["driver"]} />}>
+      <Route element={<ProtectedRoutes allowedRoles={["DRIVER"]} />}>
         <Route path="/driver/*" element={<DriverDashboard />} />
       </Route>
 
       {/* Protected: Shipper */}
-      <Route element={<ProtectedRoutes allowedRoles={["shipper"]} />}>
+      <Route element={<ProtectedRoutes allowedRoles={["SHIPPER"]} />}>
         <Route path="/shipper/*" element={<ShipperDashboard />} />
+      </Route>
+
+      {/* Protected: Field Staff */}
+      <Route element={<ProtectedRoutes allowedRoles={["FIELD_STAFF"]} />}>
+        <Route path="/field-staff/*" element={<FieldStaffDashboard />} />
       </Route>
 
       {/* 404 */}

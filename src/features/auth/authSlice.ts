@@ -1,55 +1,169 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
-import type { AuthState, User } from "../../utils/types";
 
-const storedUser = localStorage.getItem("td_user");
-const storedToken = localStorage.getItem("td_token");
+import type {
+  PayloadAction,
+} from "@reduxjs/toolkit";
+
+import type {
+  AuthState,
+  User,
+} from "../../utils/types";
+
+/* =========================================
+   SESSION STORAGE
+========================================= */
+
+const storedUser =
+  sessionStorage.getItem("td_user");
+
+const storedToken =
+  sessionStorage.getItem("td_token");
+
+const storedRefreshToken =
+  sessionStorage.getItem(
+    "td_refresh_token"
+  );
+
+/* =========================================
+   INITIAL STATE
+========================================= */
 
 const initialState: AuthState = {
-  user: storedUser ? JSON.parse(storedUser) : null,
+  user: storedUser
+    ? JSON.parse(storedUser)
+    : null,
+
   token: storedToken || null,
-  isAuthenticated: !!storedToken,
+
+  refreshToken:
+    storedRefreshToken || null,
+
+  isAuthenticated:
+    !!storedToken,
+
   loading: false,
+
   error: null,
 };
 
+/* =========================================
+   SLICE
+========================================= */
+
 const authSlice = createSlice({
   name: "auth",
+
   initialState,
+
   reducers: {
+    /* =====================================
+       SET CREDENTIALS
+    ===================================== */
+
     setCredentials: (
       state,
-      action: PayloadAction<{ user: User; token: string }>
+      action: PayloadAction<{
+        user: User;
+        token: string;
+        refreshToken: string;
+      }>
     ) => {
-      // Normalize role to lowercase for consistent comparison
-      const normalizedUser = {
-        ...action.payload.user,
-        role: action.payload.user.role.toLowerCase() as any,
-      };
-      
-      state.user = normalizedUser;
-      state.token = action.payload.token;
+      state.user =
+        action.payload.user;
+
+      state.token =
+        action.payload.token;
+
+      state.refreshToken =
+        action.payload.refreshToken;
+
       state.isAuthenticated = true;
+
       state.error = null;
-      localStorage.setItem("td_user", JSON.stringify(normalizedUser));
-      localStorage.setItem("td_token", action.payload.token);
+
+      // Save only for browser session
+      sessionStorage.setItem(
+        "td_user",
+        JSON.stringify(
+          action.payload.user
+        )
+      );
+
+      sessionStorage.setItem(
+        "td_token",
+        action.payload.token
+      );
+
+      sessionStorage.setItem(
+        "td_refresh_token",
+        action.payload.refreshToken
+      );
     },
+
+    /* =====================================
+       LOGOUT
+    ===================================== */
+
     logout: (state) => {
       state.user = null;
+
       state.token = null;
-      state.isAuthenticated = false;
-      localStorage.removeItem("td_user");
-      localStorage.removeItem("td_token");
+
+      state.refreshToken = null;
+
+      state.isAuthenticated =
+        false;
+
+      state.loading = false;
+
+      state.error = null;
+
+      sessionStorage.removeItem(
+        "td_user"
+      );
+
+      sessionStorage.removeItem(
+        "td_token"
+      );
+
+      sessionStorage.removeItem(
+        "td_refresh_token"
+      );
     },
-    setLoading: (state, action: PayloadAction<boolean>) => {
-      state.loading = action.payload;
+
+    /* =====================================
+       LOADING
+    ===================================== */
+
+    setLoading: (
+      state,
+      action: PayloadAction<boolean>
+    ) => {
+      state.loading =
+        action.payload;
     },
-    setError: (state, action: PayloadAction<string | null>) => {
-      state.error = action.payload;
+
+    /* =====================================
+       ERROR
+    ===================================== */
+
+    setError: (
+      state,
+      action: PayloadAction<
+        string | null
+      >
+    ) => {
+      state.error =
+        action.payload;
     },
   },
 });
 
-export const { setCredentials, logout, setLoading, setError } =
-  authSlice.actions;
+export const {
+  setCredentials,
+  logout,
+  setLoading,
+  setError,
+} = authSlice.actions;
+
 export default authSlice.reducer;

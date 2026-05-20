@@ -1,20 +1,49 @@
-// ─── Auth ───────────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
+// AUTH
+// ─────────────────────────────────────────────────────────────
+
+export type UserRole =
+  | "ADMIN"
+  | "OWNER"
+  | "DISPATCHER"
+  | "FIELD_STAFF"
+  | "DRIVER"
+  | "SHIPPER";
+
 export interface User {
-  id: string;
-  name: string;
+  userId: number;
+
+  firstname: string;
+  lastname: string;
+
   email: string;
-  phone?: string;
-  role: "admin" | "driver" | "shipper";
-  status: "active" | "inactive";
+
+  contact?: string | null;
+
+  address?: string | null;
+
+  profileUrl?: string | null;
+
+  role: UserRole;
+
+  isVerified: boolean;
+
   createdAt: string;
-  avatar?: string;
+
+  updatedAt: string;
 }
 
 export interface AuthState {
   user: User | null;
+
   token: string | null;
+
+  refreshToken: string | null;
+
   isAuthenticated: boolean;
+
   loading: boolean;
+
   error: string | null;
 }
 
@@ -26,114 +55,224 @@ export interface LoginCredentials {
 export interface RegisterData {
   firstname: string;
   lastname: string;
+
   email: string;
+
   password: string;
-  phone?: string;
-  role: "driver" | "shipper";
+
+  contact?: string;
+
+  address?: string;
+
+  role: "ADMIN" | "OWNER" | "DISPATCHER" | "FIELD_STAFF" | "DRIVER" | "SHIPPER";
 }
 
-// ─── Driver ─────────────────────────────────────────────────────────────────
-export interface Driver {
-  id: string;
-  name: string;
-  phone: string;
+export interface VerifyCodeData {
   email: string;
-  license: string;
-  status: "active" | "inactive" | "on_trip";
-  truckId?: string;
+  code: string;
+}
+
+// ─────────────────────────────────────────────────────────────
+// DRIVER
+// ─────────────────────────────────────────────────────────────
+
+export interface Driver {
+  driverId: number;
+
+  userId: number;
+
+  licenseNumber: string;
+
+  experienceYears?: number;
+
+  isAvailable: boolean;
+
+  currentLatitude?: number;
+
+  currentLongitude?: number;
+
   createdAt: string;
-  avatar?: string;
+
+  updatedAt: string;
 }
 
-// ─── Truck ──────────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
+// TRUCK
+// ─────────────────────────────────────────────────────────────
+
+export type TruckStatus =
+  | "AVAILABLE"
+  | "ASSIGNED"
+  | "IN_TRANSIT"
+  | "MAINTENANCE";
+
 export interface Truck {
-  id: string;
-  plateNumber: string;
-  model: string;
-  capacity: number;
-  status: "available" | "on_road" | "maintenance";
-  driverId?: string;
-  lastService?: string;
+  truckId: number;
+
+  truckNumber: string;
+
+  model?: string;
+
+  capacity?: number;
+
+  status: TruckStatus;
+
+  assignedDriverId?: number;
+
+  createdAt?: string;
+
+  updatedAt?: string;
 }
 
-// ─── Load ───────────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
+// LOAD
+// ─────────────────────────────────────────────────────────────
+
 export type LoadStatus =
-  | "pending"
-  | "dispatched"
-  | "in_transit"
-  | "delivered"
-  | "cancelled";
+  | "PENDING"
+  | "APPROVED"
+  | "REJECTED"
+  | "ASSIGNED"
+  | "PICKED_UP"
+  | "IN_TRANSIT"
+  | "DELIVERED"
+  | "CANCELLED";
 
 export interface Load {
-  id: string;
-  origin: string;
-  destination: string;
-  driverId?: string;
-  truckId?: string;
-  shipperId: string;
+  loadId: number;
+
+  shipperId: number;
+
+  title: string;
+
+  description?: string;
+
+  pickupLocation: string;
+
+  deliveryLocation: string;
+
+  weight?: number;
+
+  price?: number;
+
+  pickupDate?: string;
+
+  deliveryDate?: string;
+
   status: LoadStatus;
-  cargo: string;
-  weight: number;
-  quantity: number;
+
   createdAt: string;
+
   updatedAt: string;
-  estimatedDelivery?: string;
 }
 
-// ─── Dispatch ────────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
+// DISPATCH
+// ─────────────────────────────────────────────────────────────
+
 export interface Dispatch {
-  id: string;
-  loadId: string;
-  driverId: string;
-  truckId: string;
-  dispatchedAt: string;
-  notes?: string;
+  assignmentId: number;
+
+  loadId: number;
+
+  truckId: number;
+
+  driverId: number;
+
+  assignedBy: number;
+
+  assignedAt: string;
 }
 
-// ─── Tracking ────────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
+// TRACKING
+// ─────────────────────────────────────────────────────────────
+
 export interface TrackingEvent {
-  id: string;
-  loadId: string;
-  status: string;
-  location: string;
-  timestamp: string;
-  note?: string;
+  trackingId: number;
+
+  driverId: number;
+
+  truckId: number;
+
+  latitude: number;
+
+  longitude: number;
+
+  speed?: number;
+
+  createdAt: string;
 }
 
-// ─── POD ─────────────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
+// POD
+// ─────────────────────────────────────────────────────────────
+
 export interface POD {
-  id: string;
-  loadId: string;
-  driverId: string;
+  podId: number;
+
+  loadId: number;
+
+  uploadedBy?: number;
+
   imageUrl: string;
-  notes?: string;
+
+  receiverName?: string;
+
+  signatureUrl?: string;
+
   uploadedAt: string;
 }
 
-// ─── Payment ─────────────────────────────────────────────────────────────────
-export type PaymentStatus = "paid" | "pending" | "overdue";
+// ─────────────────────────────────────────────────────────────
+// PAYMENT
+// ─────────────────────────────────────────────────────────────
+
+export type PaymentStatus =
+  | "PENDING"
+  | "PAID"
+  | "FAILED";
 
 export interface Payment {
-  id: string;
-  invoiceId: string;
-  loadId: string;
-  customer: string;
+  paymentId: number;
+
+  loadId: number;
+
+  userId: number;
+
   amount: number;
-  status: PaymentStatus;
-  dueDate: string;
-  paidAt?: string;
+
+  commission?: number;
+
+  paymentStatus: PaymentStatus;
+
+  transactionReference?: string;
+
+  createdAt: string;
+
+  updatedAt: string;
 }
 
-// ─── Dashboard Stats ─────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
+// DASHBOARD STATS
+// ─────────────────────────────────────────────────────────────
+
 export interface DashboardStats {
   totalLoads: number;
+
   inTransit: number;
+
   delivered: number;
+
   pending: number;
+
   totalDrivers: number;
+
   totalTrucks: number;
+
   totalRevenue: number;
+
   paidAmount: number;
+
   pendingAmount: number;
-  overdueAmount: number;
 }

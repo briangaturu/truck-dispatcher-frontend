@@ -22,8 +22,11 @@ const th = "text-left py-2.5 px-3 bg-slate-50 text-slate-500 text-[11px] font-se
 const td = "py-2.5 px-3 border-b border-slate-100 align-middle text-[13px]";
 
 const AllLoads = () => {
-  const { data: loads = [], isLoading } = useGetLoadsQuery();
+  const { data: loadsResponse = [], isLoading } = useGetLoadsQuery();
   const [search, setSearch] = useState("");
+  
+  // Handle both array and wrapped response
+  const loads = Array.isArray(loadsResponse) ? loadsResponse : [];
   const displayLoads = (loads.length > 0 ? loads : mockLoads).filter(
     (l) => !search || l.id.toLowerCase().includes(search.toLowerCase()) || l.origin.toLowerCase().includes(search.toLowerCase()) || l.destination.toLowerCase().includes(search.toLowerCase())
   );

@@ -23,7 +23,7 @@ const TrackShipment = () => {
           placeholder="Enter Load ID..."
           className="flex-1 py-2.5 px-3.5 border border-slate-200 rounded-[10px] text-sm outline-none focus:border-primary"
         />
-        <button className="td-btn td-btn--primary" onClick={() => setSearch(loadId)}>Track</button>
+        <button className="inline-flex items-center justify-center gap-1.5 py-2 px-4 rounded-lg font-semibold text-sm bg-primary text-white border-2 border-primary transition-all duration-150 hover:bg-primary-dark hover:border-primary-dark disabled:opacity-60 disabled:cursor-not-allowed" onClick={() => setSearch(loadId)}>Track</button>
       </div>
       {isFetching ? <div className="py-10 text-center text-slate-500 text-sm">Fetching tracking info...</div> : (
         <div className="flex flex-col gap-0 pl-4">

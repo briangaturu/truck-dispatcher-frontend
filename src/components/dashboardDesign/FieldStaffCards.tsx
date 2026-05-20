@@ -1,4 +1,4 @@
-interface ShipperCardProps {
+interface FieldStaffCardProps {
   title: string;
   value: string | number;
   icon: string;
@@ -7,7 +7,7 @@ interface ShipperCardProps {
   up?: boolean;
 }
 
-const ShipperCard = ({ title, value, icon, bg = "#eff6ff", delta, up = true }: ShipperCardProps) => (
+const FieldStaffCard = ({ title, value, icon, bg = "#eff6ff", delta, up = true }: FieldStaffCardProps) => (
   <div className="stat-card">
     <div className="stat-card-icon" style={{ background: bg }}>
       {icon}
@@ -23,4 +23,4 @@ const ShipperCard = ({ title, value, icon, bg = "#eff6ff", delta, up = true }: S
   </div>
 );
 
-export default ShipperCard;
+export default FieldStaffCard;

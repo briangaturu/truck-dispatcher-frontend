@@ -5,7 +5,7 @@ import type { Payment } from "../../utils/types";
 export const paymentsApi = createApi({
   reducerPath: "paymentsApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: import.meta.env.VITE_API_URL || "http://localhost:5000/api",
+    baseUrl: import.meta.env.VITE_API_URL || "http://localhost:3000/api",
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).auth.token;
       if (token) headers.set("authorization", `Bearer ${token}`);

@@ -15,11 +15,11 @@ import LatestLoadsTable from "../content/adminDashboard/LatestLoads";
 
 // Admin overview (default /admin route)
 const AdminOverview = () => (
-  <div className="p-6 flex flex-col gap-5 max-md:p-4">
-    <div className="flex items-center justify-between">
+  <>
+    <div className="flex items-center justify-between mb-6">
       <div>
-        <h2 className="text-lg font-bold text-slate-900">Dashboard</h2>
-        <p className="text-xs text-slate-400 mt-0.5">
+        <h3 className="text-base font-semibold text-slate-900">Quick Overview</h3>
+        <p className="text-xs text-slate-400 mt-1">
           {new Date().toLocaleDateString("en-KE", { weekday: "short", year: "numeric", month: "long", day: "numeric" })}
         </p>
       </div>
@@ -29,26 +29,26 @@ const AdminOverview = () => (
       </div>
     </div>
     <AdminHero />
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       <RevenueChart />
       <Analytics />
     </div>
     <LatestLoadsTable />
-  </div>
+  </>
 );
 
 const AdminDashboard = () => (
   <Routes>
     <Route element={<AdminLayout />}>
       <Route index element={<AdminOverview />} />
-      <Route path="loads" element={<div className="p-6 flex flex-col gap-5 max-md:p-4"><AllLoads /></div>} />
-      <Route path="trucks" element={<div className="p-6 flex flex-col gap-5 max-md:p-4"><AllTrucks /></div>} />
-      <Route path="drivers" element={<div className="p-6 flex flex-col gap-5 max-md:p-4"><AllDrivers /></div>} />
-      <Route path="users" element={<div className="p-6 flex flex-col gap-5 max-md:p-4"><AllUsers /></div>} />
-      <Route path="payments" element={<div className="p-6 flex flex-col gap-5 max-md:p-4"><AllPayments /></div>} />
-      <Route path="pods" element={<div className="p-6 flex flex-col gap-5 max-md:p-4"><AllPODs /></div>} />
-      <Route path="dispatch" element={<div className="p-6 flex flex-col gap-5 max-md:p-4"><DispatchPanel /></div>} />
-      <Route path="profile" element={<div className="p-6 flex flex-col gap-5 max-md:p-4"><AdminProfile /></div>} />
+      <Route path="loads" element={<AllLoads />} />
+      <Route path="trucks" element={<AllTrucks />} />
+      <Route path="drivers" element={<AllDrivers />} />
+      <Route path="users" element={<AllUsers />} />
+      <Route path="payments" element={<AllPayments />} />
+      <Route path="pods" element={<AllPODs />} />
+      <Route path="dispatch" element={<DispatchPanel />} />
+      <Route path="profile" element={<AdminProfile />} />
     </Route>
   </Routes>
 );

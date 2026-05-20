@@ -1,208 +1,126 @@
 import { Link } from "react-router-dom";
- 
-/* ─── SHARED STYLES (injected once via a wrapper or individually) ─── */
-const sharedStyles = `
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Epilogue:wght@300;400;500;600&display=swap');
-`;
 
 export const AboutUs = () => (
   <>
     <style>{`
-      ${sharedStyles}
- 
-      .au-section {
-        width: 100%;
-        background: #f4f1ec;
-        padding: 100px 24px;
-        position: relative;
-        overflow: hidden;
-        font-family: 'Epilogue', sans-serif;
-      }
-      .au-section::before {
-        content: '';
-        position: absolute; inset: 0;
-        background:
-          radial-gradient(ellipse 55% 55% at 0% 50%, rgba(99,102,241,0.07) 0%, transparent 65%),
-          radial-gradient(ellipse 45% 50% at 100% 40%, rgba(14,165,233,0.05) 0%, transparent 60%);
-        pointer-events: none;
-      }
-      .au-shape { position: absolute; pointer-events: none; z-index: 0; }
-      .au-ring-1 {
-        width: 380px; height: 380px; border-radius: 50%;
-        border: 1.5px solid rgba(99,102,241,0.07);
-        top: -120px; right: -80px;
-        animation: au-spin 55s linear infinite;
-      }
-      .au-ring-2 {
-        width: 220px; height: 220px; border-radius: 50%;
-        border: 1px solid rgba(14,165,233,0.08);
-        bottom: -60px; left: -50px;
-        animation: au-spin 40s linear infinite reverse;
-      }
-      .au-dots {
-        width: 160px; height: 160px;
-        bottom: 60px; right: 60px;
-        background-image: radial-gradient(circle, rgba(99,102,241,0.12) 1.5px, transparent 1.5px);
-        background-size: 18px 18px; opacity: 0.55;
-      }
+      @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Epilogue:wght@300;400;500;600&display=swap');
+      
       @keyframes au-spin { to { transform: rotate(360deg); } }
- 
-      .au-inner {
-        position: relative; z-index: 10;
-        max-width: 1140px; margin: 0 auto;
-        display: grid; grid-template-columns: 1fr 1fr;
-        gap: 72px; align-items: center;
-      }
- 
-      /* Content side */
-      .au-eyebrow {
-        display: inline-flex; align-items: center; gap: 7px;
-        padding: 5px 14px; border-radius: 999px;
-        border: 1px solid rgba(99,102,241,0.2);
-        background: rgba(99,102,241,0.06);
-        font-size: 11px; font-weight: 600; color: #6366f1;
-        letter-spacing: 0.08em; text-transform: uppercase;
-        margin-bottom: 20px;
-      }
-      .au-eyebrow-dot {
-        width: 5px; height: 5px; border-radius: 50%; background: #6366f1;
-        animation: au-pulse 2s ease-in-out infinite;
-      }
       @keyframes au-pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
- 
-      .au-title {
-        font-family: 'Playfair Display', serif;
-        font-size: clamp(1.9rem, 3vw, 2.6rem);
-        font-weight: 900; color: #111827; line-height: 1.12;
-        margin: 0 0 20px;
-      }
-      .au-title span {
-        background: linear-gradient(135deg, #6366f1, #0ea5e9);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
- 
-      .au-desc {
-        font-size: 15px; color: #6b7280; line-height: 1.8;
-        margin: 0 0 32px; font-weight: 400; max-width: 460px;
-      }
- 
-      .au-checks { display: flex; flex-direction: column; gap: 14px; list-style: none; margin: 0 0 36px; padding: 0; }
-      .au-check-item { display: flex; align-items: center; gap: 14px; font-size: 14px; color: #374151; }
-      .au-check-icon {
-        width: 26px; height: 26px; border-radius: 8px;
-        background: linear-gradient(135deg, #6366f1, #0ea5e9);
-        display: flex; align-items: center; justify-content: center;
-        font-size: 12px; color: #fff; font-weight: 700; flex-shrink: 0;
-        box-shadow: 0 4px 10px rgba(99,102,241,0.3);
-      }
- 
-      .au-cta {
-        display: inline-flex; align-items: center; gap: 8px;
-        padding: 0 28px; height: 50px; border-radius: 14px;
-        background: linear-gradient(135deg, #6366f1 0%, #4f46e5 45%, #0ea5e9 100%);
-        color: #fff; font-family: 'Epilogue', sans-serif;
-        font-size: 14px; font-weight: 600; text-decoration: none;
-        box-shadow: 0 6px 20px rgba(99,102,241,0.35);
-        position: relative; overflow: hidden;
-        transition: transform 0.15s, box-shadow 0.2s;
-      }
-      .au-cta::before {
-        content: ''; position: absolute; inset: 0;
-        background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 55%);
-      }
-      .au-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(99,102,241,0.4); }
- 
-      /* Visual side */
-      .au-visual { position: relative; }
-      .au-img-wrap {
-        border-radius: 28px; overflow: hidden;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.06), 0 20px 60px rgba(99,102,241,0.1), 0 60px 100px rgba(0,0,0,0.08);
-        aspect-ratio: 4/3; position: relative;
-      }
-      .au-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s ease; }
-      .au-img-wrap:hover img { transform: scale(1.04); }
-      .au-img-wrap::after {
-        content: ''; position: absolute; inset: 0;
-        background: linear-gradient(160deg, transparent 45%, rgba(99,102,241,0.12) 100%);
-        pointer-events: none;
-      }
-      .au-img-bar {
-        position: absolute; top: 0; left: 0; right: 0; height: 4px;
-        background: linear-gradient(90deg, #6366f1, #0ea5e9, #6366f1);
-        background-size: 200% 100%; border-radius: 28px 28px 0 0;
-        animation: au-shimmer 3s ease infinite;
-      }
       @keyframes au-shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
- 
-      .au-float-card {
-        position: absolute; bottom: -20px; left: -24px;
-        background: #fff; border-radius: 18px; padding: 14px 20px;
-        box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-        display: flex; align-items: center; gap: 12px; min-width: 170px;
-        animation: au-float 4s ease-in-out infinite;
-      }
       @keyframes au-float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
-      .au-float-icon {
-        width: 40px; height: 40px; border-radius: 12px; font-size: 18px;
-        background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(14,165,233,0.08));
-        border: 1px solid rgba(99,102,241,0.1);
-        display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-      }
-      .au-float-val { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 800; color: #111827; line-height: 1; }
-      .au-float-label { font-size: 11px; color: #9ca3af; font-weight: 500; margin-top: 3px; }
- 
-      @media (max-width: 860px) {
-        .au-inner { grid-template-columns: 1fr; gap: 48px; }
-        .au-visual { display: none; }
-        .au-section { padding: 72px 20px; }
-      }
     `}</style>
- 
-    <section className="au-section">
-      <div className="au-shape au-ring-1" />
-      <div className="au-shape au-ring-2" />
-      <div className="au-shape au-dots" />
- 
-      <div className="au-inner">
-        {/* Content */}
+
+    <section className="w-full bg-[#f4f1ec] py-[100px] px-6 relative overflow-hidden font-[Epilogue]" style={{
+      background: `
+        linear-gradient(135deg, transparent 0%, transparent 100%),
+        radial-gradient(ellipse 55% 55% at 0% 50%, rgba(99,102,241,0.07) 0%, transparent 65%),
+        radial-gradient(ellipse 45% 50% at 100% 40%, rgba(14,165,233,0.05) 0%, transparent 60%)
+      `
+    }}>
+      <div className="absolute pointer-events-none z-0 w-[380px] h-[380px] rounded-full border border-[rgba(99,102,241,0.07)] top-[-120px] right-[-80px]" style={{ animation: 'au-spin 55s linear infinite' }} />
+      <div className="absolute pointer-events-none z-0 w-[220px] h-[220px] rounded-full border border-[rgba(14,165,233,0.08)] bottom-[-60px] left-[-50px]" style={{ animation: 'au-spin 40s linear infinite reverse' }} />
+      <div className="absolute pointer-events-none z-0 w-[160px] h-[160px] bottom-[60px] right-[60px] opacity-[0.55]" style={{
+        backgroundImage: 'radial-gradient(circle, rgba(99,102,241,0.12) 1.5px, transparent 1.5px)',
+        backgroundSize: '18px 18px'
+      }} />
+
+      <div className="relative z-10 max-w-[1140px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-[72px] items-center">
         <div>
-          <div className="au-eyebrow"><span className="au-eyebrow-dot" />Who We Are</div>
-          <h2 className="au-title">Built for Modern<br /><span>Logistics Companies</span></h2>
-          <p className="au-desc">
+          <div className="inline-flex items-center gap-[7px] px-[14px] py-[5px] rounded-full border border-[rgba(99,102,241,0.2)] bg-[rgba(99,102,241,0.06)] text-[11px] font-semibold text-[#6366f1] uppercase tracking-[0.08em] mb-5">
+            <span className="w-[5px] h-[5px] rounded-full bg-[#6366f1]" style={{ animation: 'au-pulse 2s ease-in-out infinite' }} />
+            Who We Are
+          </div>
+          <h2 className="font-display text-[clamp(1.9rem,3vw,2.6rem)] font-black text-[#111827] leading-[1.12] mb-5">
+            Built for Modern<br />
+            <span style={{
+              background: 'linear-gradient(135deg, #6366f1, #0ea5e9)',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent'
+            }}>Logistics Companies</span>
+          </h2>
+          <p className="text-[15px] text-[#6b7280] leading-[1.8] font-normal max-w-[460px] mb-8">
             Truck Dispatcher is built for modern logistics companies to streamline
             operations, improve communication, and deliver results — every time.
           </p>
-          <ul className="au-checks">
+          <ul className="flex flex-col gap-[14px] list-none p-0 mb-9">
             {[
               "All-in-one logistics solution",
               "Real-time visibility and tracking",
               "Trusted by logistics professionals",
               "Easy to use and powerfully capable",
             ].map((item) => (
-              <li key={item} className="au-check-item">
-                <span className="au-check-icon">✓</span>
+              <li key={item} className="flex items-center gap-[14px] text-[14px] text-[#374151]">
+                <span className="w-[26px] h-[26px] rounded-[8px] bg-gradient-to-br from-[#6366f1] to-[#0ea5e9] flex items-center justify-center text-[12px] text-white font-bold flex-shrink-0" style={{ boxShadow: '0 4px 10px rgba(99,102,241,0.3)' }}>
+                  ✓
+                </span>
                 {item}
               </li>
             ))}
           </ul>
-          <Link to="/register" className="au-cta">Get Started →</Link>
+          <Link 
+            to="/register" 
+            className="inline-flex items-center gap-2 px-7 h-[50px] rounded-[14px] text-white font-semibold text-[14px] relative overflow-hidden no-underline transition-all duration-150"
+            style={{
+              background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 45%, #0ea5e9 100%)',
+              boxShadow: '0 6px 20px rgba(99,102,241,0.35)'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.boxShadow = '0 12px 28px rgba(99,102,241,0.4)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'none';
+              e.currentTarget.style.boxShadow = '0 6px 20px rgba(99,102,241,0.35)';
+            }}
+          >
+            Get Started →
+          </Link>
         </div>
- 
-        {/* Visual */}
-        <div className="au-visual">
-          <div className="au-img-wrap">
-            <div className="au-img-bar" />
+
+        <div className="relative hidden lg:block">
+          <div className="relative rounded-[28px] overflow-hidden aspect-[4/3]" style={{
+            boxShadow: '0 4px 8px rgba(0,0,0,0.06), 0 20px 60px rgba(99,102,241,0.1), 0 60px 100px rgba(0,0,0,0.08)'
+          }}>
+            <div 
+              className="absolute top-0 left-0 right-0 h-1 rounded-t-[28px]"
+              style={{
+                background: 'linear-gradient(90deg, #6366f1, #0ea5e9, #6366f1)',
+                backgroundSize: '200% 100%',
+                animation: 'au-shimmer 3s ease infinite'
+              }}
+            />
             <img
               src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=700&auto=format&fit=crop"
               alt="Truck on mountain road"
+              className="w-full h-full object-cover block transition-transform duration-600"
+              onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.04)'}
+              onMouseLeave={(e) => e.currentTarget.style.transform = 'none'}
             />
+            <div className="absolute inset-0 pointer-events-none" style={{
+              background: 'linear-gradient(160deg, transparent 45%, rgba(99,102,241,0.12) 100%)'
+            }} />
           </div>
-          <div className="au-float-card">
-            <div className="au-float-icon">🌍</div>
+          <div 
+            className="absolute bottom-[-20px] left-[-24px] bg-white rounded-[18px] py-[14px] px-5 flex items-center gap-3 min-w-[170px]"
+            style={{
+              boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
+              animation: 'au-float 4s ease-in-out infinite'
+            }}
+          >
+            <div className="w-[40px] h-[40px] rounded-[12px] text-[18px] flex items-center justify-center flex-shrink-0 border border-[rgba(99,102,241,0.1)]" style={{
+              background: 'linear-gradient(135deg, rgba(99,102,241,0.1), rgba(14,165,233,0.08))'
+            }}>
+              🌍
+            </div>
             <div>
-              <div className="au-float-val">Kenya #1</div>
-              <div className="au-float-label">Dispatch Platform</div>
+              <div className="font-display text-[18px] font-black text-[#111827] leading-[1]">
+                Kenya #1
+              </div>
+              <div className="text-[11px] text-[#9ca3af] font-medium mt-[3px]">
+                Dispatch Platform
+              </div>
             </div>
           </div>
         </div>
@@ -210,4 +128,3 @@ export const AboutUs = () => (
     </section>
   </>
 );
- 
