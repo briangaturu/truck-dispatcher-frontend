@@ -48,10 +48,10 @@ const ShipperSidebar = () => {
       <div className="sidebar-footer">
         <div className="sidebar-user">
           <div className="sidebar-user-avatar">
-            {user?.name?.[0]?.toUpperCase() || "S"}
+            {user?.firstname?.[0]?.toUpperCase() || "S"}
           </div>
           <div className="sidebar-user-info">
-            <p className="sidebar-user-name">{user?.name || "Shipper"}</p>
+            <p className="sidebar-user-name">{user?.firstname || "Shipper"}</p>
             <p className="sidebar-user-role">Shipper</p>
           </div>
         </div>

@@ -49,10 +49,10 @@ const DriverSidebar = () => {
       <div className="sidebar-footer">
         <div className="sidebar-user">
           <div className="sidebar-user-avatar">
-            {user?.name?.[0]?.toUpperCase() || "D"}
+            {user?.firstname?.[0]?.toUpperCase() || "D"}
           </div>
           <div className="sidebar-user-info">
-            <p className="sidebar-user-name">{user?.name || "Driver"}</p>
+            <p className="sidebar-user-name">{user?.firstname || "Driver"}</p>
             <p className="sidebar-user-role">Driver</p>
           </div>
         </div>

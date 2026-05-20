@@ -54,10 +54,10 @@ const AdminSidenav = () => {
       <div className="sidebar-footer">
         <div className="sidebar-user">
           <div className="sidebar-user-avatar">
-            {user?.name?.[0]?.toUpperCase() || "A"}
+            {user?.firstname?.[0]?.toUpperCase() || "A"}
           </div>
           <div className="sidebar-user-info">
-            <p className="sidebar-user-name">{user?.name || "Admin"}</p>
+            <p className="sidebar-user-name">{user?.firstname || "Admin"}</p>
             <p className="sidebar-user-role">Administrator</p>
           </div>
         </div>

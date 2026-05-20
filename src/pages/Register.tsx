@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useRegisterMutation } from "../features/api/authApi";
+import type { PublicRole } from "../utils/types";
 
 const Register = () => {
   const [form, setForm] = useState({
@@ -10,13 +11,8 @@ const Register = () => {
     contact: "",
     password: "",
     confirmPassword: "",
-    role: "SHIPPER" as
-      | "ADMIN"
-      | "OWNER"
-      | "DISPATCHER"
-      | "FIELD_STAFF"
-      | "DRIVER"
-      | "SHIPPER",
+    role: "SHIPPER" as PublicRole,
+    
   });
 
   const [pwError, setPwError] = useState("");
@@ -32,33 +28,36 @@ const Register = () => {
     }));
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (form.password !== form.confirmPassword) {
-      setPwError("Passwords do not match.");
-      return;
+  if (form.password !== form.confirmPassword) {
+    setPwError("Passwords do not match.");
+    return;
+  }
+
+  setPwError("");
+
+  try {
+    const { confirmPassword, ...data } = form;
+
+    console.log("Submitting payload:", JSON.stringify(data, null, 2)); // ✅ logs actual data
+
+    const result = await register(data).unwrap();
+
+    console.log("Registration success:", result); // ✅ logs server response
+
+    if (result.success) {
+      navigate("/verify-email", {
+        state: { email: form.email },
+      });
     }
-
-    setPwError("");
-
-    try {
-      const { confirmPassword, ...data } = form;
-
-      const result = await register(data).unwrap();
-console.log("Submitting:", FormData); // or whatever your payload variable is
-      if (result.success) {
-        navigate("/verify-email", {
-          state: { email: form.email },
-        });
-      }
-    } catch (err: any) {
-      console.error("Registration error:", err);
-      setPwError(
-        err?.data?.message ||
-          "Registration failed. Please try again."
-      );
-    }
-  };
+  } catch (err: any) {
+    console.error("Registration error full:", JSON.stringify(err, null, 2)); // ✅ logs full error with server message
+    setPwError(
+      err?.data?.message || "Registration failed. Please try again."
+    );
+  }
+};
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-500 via-purple-500 to-purple-700 p-8">
@@ -122,20 +121,19 @@ console.log("Submitting:", FormData); // or whatever your payload variable is
               className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500"
             />
 
-            {/* Role */}
-            <select
-              name="role"
-              value={form.role}
-              onChange={handleChange}
-              className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 bg-white"
-            >
-              <option value="SHIPPER">Shipper</option>
-              <option value="DRIVER">Driver</option>
-              <option value="FIELD_STAFF">Field Staff</option>
-              <option value="ADMIN">Admin</option>
-              <option value="OWNER">Owner</option>
-              <option value="DISPATCHER">Dispatcher</option>
-            </select>
+            
+           {/* Role */}
+<select
+  name="role"
+  value={form.role}
+  onChange={handleChange}
+  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 bg-white"
+>
+  <option value="SHIPPER">Shipper</option>
+  <option value="DRIVER">Driver</option>
+  <option value="FIELD_STAFF">Field Staff</option>
+  <option value="DISPATCHER">Dispatcher</option>
+</select>
 
             {/* Password */}
             <input
