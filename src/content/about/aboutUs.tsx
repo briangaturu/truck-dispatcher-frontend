@@ -11,23 +11,23 @@ export const AboutUs = () => (
       @keyframes au-float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
     `}</style>
 
-    <section className="w-full bg-[#f4f1ec] py-[100px] px-6 relative overflow-hidden font-[Epilogue]" style={{
+    <section className="w-full bg-[#f4f1ec] py-25 px-6 relative overflow-hidden font-[Epilogue]" style={{
       background: `
         linear-gradient(135deg, transparent 0%, transparent 100%),
         radial-gradient(ellipse 55% 55% at 0% 50%, rgba(99,102,241,0.07) 0%, transparent 65%),
         radial-gradient(ellipse 45% 50% at 100% 40%, rgba(14,165,233,0.05) 0%, transparent 60%)
       `
     }}>
-      <div className="absolute pointer-events-none z-0 w-[380px] h-[380px] rounded-full border border-[rgba(99,102,241,0.07)] top-[-120px] right-[-80px]" style={{ animation: 'au-spin 55s linear infinite' }} />
-      <div className="absolute pointer-events-none z-0 w-[220px] h-[220px] rounded-full border border-[rgba(14,165,233,0.08)] bottom-[-60px] left-[-50px]" style={{ animation: 'au-spin 40s linear infinite reverse' }} />
-      <div className="absolute pointer-events-none z-0 w-[160px] h-[160px] bottom-[60px] right-[60px] opacity-[0.55]" style={{
+      <div className="absolute pointer-events-none z-0 w-95 h-95 rounded-full border border-[rgba(99,102,241,0.07)] -top-30 -right-20" style={{ animation: 'au-spin 55s linear infinite' }} />
+      <div className="absolute pointer-events-none z-0 w-55 h-55 rounded-full border border-[rgba(14,165,233,0.08)] -bottom-15 -left-12.5" style={{ animation: 'au-spin 40s linear infinite reverse' }} />
+      <div className="absolute pointer-events-none z-0 w-40 h-40 bottom-15 right-15 opacity-[0.55]" style={{
         backgroundImage: 'radial-gradient(circle, rgba(99,102,241,0.12) 1.5px, transparent 1.5px)',
         backgroundSize: '18px 18px'
       }} />
 
-      <div className="relative z-10 max-w-[1140px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-[72px] items-center">
+      <div className="relative z-10 max-w-285 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-18 items-center">
         <div>
-          <div className="inline-flex items-center gap-[7px] px-[14px] py-[5px] rounded-full border border-[rgba(99,102,241,0.2)] bg-[rgba(99,102,241,0.06)] text-[11px] font-semibold text-[#6366f1] uppercase tracking-[0.08em] mb-5">
+          <div className="inline-flex items-center gap-1.75 px-3.5 py-1.25 rounded-full border border-[rgba(99,102,241,0.2)] bg-[rgba(99,102,241,0.06)] text-[11px] font-semibold text-[#6366f1] uppercase tracking-[0.08em] mb-5">
             <span className="w-[5px] h-[5px] rounded-full bg-[#6366f1]" style={{ animation: 'au-pulse 2s ease-in-out infinite' }} />
             Who We Are
           </div>
